@@ -88,21 +88,3 @@ median(sums2[,2])
 The mean is unchanged but the median has changed to the mean. 
 
 ## Are there differences in activity patterns between weekdays and weekends?
-
-```{r}
-a2$dayOfWeek <- as.factor(weekdays(as.Date(a2$date)))
-a2$dayType <- as.factor("Weekday")
-levels(a2$dayType)[2] <- "Weekend"
-a2[which(a2[,4] == "Saturday" | a2[,4] == "Sunday" ), 5] <- "Weekend"
-weekdays <- a2[which(a2[,5] == "Weekday"), ]
-weekdaySums <- aggregate(weekdays[, 1], list(weekdays$interval), sum)
-weekend <- a2[which(a2[,5] == "Weekend"), ]
-weekendSums <- aggregate(weekend[, 1], list(weekend$interval), sum)
-
-par(mfrow=c(2,1), mai = c(.3, 0, 0.3, 0), oma = c(3,3,3,3))
-plot(1:nrow(weekendSums),weekendSums$x-mean(weekendSums$x), type="l",
-     ylab = "", xlab = "", main = "weekend", col = "blue", xaxt="n")
-plot(1:nrow(weekdaySums),weekdaySums$x-mean(weekdaySums$x), type="l",
-     ylab = "", xlab = "", main = "weekday", col = "blue", xaxt="n")
-axis(1, at=c(0,50,100,150,200, 250), labels=c(0,250,500,750,1000, 1250))
-```

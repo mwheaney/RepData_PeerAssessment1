@@ -1,0 +1,29 @@
+---
+title: "RepData Assignment 1"
+---
+
+This is assignment 1 for Reproducable Research. 
+This file contains explaination and code required to process activity data as 
+directed. 
+
+The first code block reads the data in and filters out NA values 
+```{r}
+library(dplyr)
+a <- read.csv("../data/activity.csv")
+af <- a[complete.cases(a),]
+```
+
+The next code block calculates the sums of steps per day and generates a 
+histogram of them. 
+
+```{r}
+sums <- aggregate(af[, 1], list(af$date), sum)
+hist(sums[,2], main="Steps per day", ylim = c(0,30), xlab="Steps")
+```
+
+```{r}
+means <- aggregate(af[, 1], list(a$date), mean)
+medians <- aggregate(af[, 1], list(a$date), median)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
